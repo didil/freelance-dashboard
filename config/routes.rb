@@ -1,4 +1,7 @@
 FreelanceDashboard::Application.routes.draw do
+
+  get "jobs/index"
+
   get "keywords_controller/create"
 
   get "home/index"

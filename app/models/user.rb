@@ -11,4 +11,15 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   has_many :keywords
+
+  def jobs
+    output = []
+    if keywords.any?
+      keywords.each do |keyword|
+         Job.where("keywords like ?", "%#{keyword.content}%").each { |j| output << j }
+      end
+    end
+    output
+  end
+
 end

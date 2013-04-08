@@ -100,4 +100,21 @@ describe User do
 
   end
 
+  describe "jobs" do
+
+    it "should retrieve jobs" do
+      @user = FactoryGirl.create(:user)
+      FactoryGirl.create(:keyword , content:"php" , user_id:@user.id )
+      FactoryGirl.create(:keyword , content:"html" , user_id:@user.id )
+      FactoryGirl.create(:job , keywords:"php")
+      FactoryGirl.create(:job , keywords:"php, cake")
+      FactoryGirl.create(:job , keywords:"html")
+      FactoryGirl.create(:job , keywords:"translation")
+
+      @user.jobs.length.should eq(3)
+
+    end
+
+  end
+
 end

@@ -63,5 +63,18 @@ feature "manage keywords" do
       page.should have_content('ruby')
     end
   end
+
+  scenario "delete a keyword with js" , :js => true do
+    FactoryGirl.create(:keyword, :content => "php", :user_id => user.id)
+    FactoryGirl.create(:keyword, :content => "ruby", :user_id => user.id)
+    visit '/'
+    within "#keywords_container" do
+      click_link 'php'
+    end
+    within "#keywords_container" do
+      page.should_not have_content('php')
+      page.should have_content('ruby')
+    end
+  end
 end
 

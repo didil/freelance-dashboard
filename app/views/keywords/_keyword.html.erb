@@ -1,5 +1,5 @@
 <li>
-  <%= link_to keyword.content, keyword, :method => :delete,
+  <%= link_to keyword.content, keyword, :method => :delete, :remote => true,
               :confirm => "Are you sure you want to delete this keyword ?",
               :class => "btn btn-info" %>
 </li>
