@@ -1,0 +1,5 @@
+$('#flash').html("<%= escape_javascript raw(flash_display) %>");
+
+<% if @keywords %>
+$('ul#keywords_list').html("<%=j render @keywords  %>");
+<% end %>
