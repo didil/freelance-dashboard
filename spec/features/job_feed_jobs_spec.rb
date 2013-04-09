@@ -44,6 +44,15 @@ feature "list jobs" do
     within("#jobs_container") do
       click_link "Refresh"
       page.should have_selector('li.job', :count => 4)
+      page.should have_content("4 jobs")
     end
   end
+
+  scenario "show number of jobs filtered" do
+    visit '/'
+    within("#jobs_container") do
+      page.should have_content "3 jobs"
+    end
+  end
+
 end

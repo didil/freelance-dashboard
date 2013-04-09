@@ -32,6 +32,13 @@ div#jobs_container {
   margin-top: 1em;
   position: relative;
 
+  #num_jobs{
+    position: absolute;
+    top: 0.7em;
+    right: 12em;
+    font-style: italic;
+  }
+
   #refresh_btn{
     position: absolute;
     top: 0.4em;

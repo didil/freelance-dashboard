@@ -3,3 +3,5 @@ $('#flash').html("<%= escape_javascript raw(flash_display) %>");
 $('ul#keywords_list').html("<%=j render current_user.keywords %>");
 
 $('ul#jobs_list').html("<%=j render current_user.jobs %>");
+
+$("#num_jobs").html("<%= current_user.jobs.length %> jobs");
