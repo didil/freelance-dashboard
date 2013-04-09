@@ -1,17 +1,16 @@
 FreelanceDashboard::Application.routes.draw do
 
-  get "jobs/index"
+  get "jobs/update" , :as => "jobs_update"
 
   get "keywords_controller/create"
 
   get "home/index"
 
   get "job_feed/index"
+  get "job_feed/refresh" , :as => "refresh_job_feed"
 
-  authenticated :user do
-    root :to => 'job_feed#index'
-  end
-  root :to => "home#index"
+  root :to => 'job_feed#index'
+
   devise_for :users
   resources :users
 

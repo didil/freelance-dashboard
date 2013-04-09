@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/Judis/ruby_desk.git
+  revision: 6a77394f79ab98dd67c7a90dda6193a224d03582
+  specs:
+    ruby_desk (0.9.0)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -57,7 +64,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-    database_cleaner (1.0.0.RC1)
+    database_cleaner (0.9.1)
     debug_inspector (0.0.2)
     devise (2.2.3)
       bcrypt-ruby (~> 3.0)
@@ -196,7 +203,7 @@ DEPENDENCIES
   cancan (>= 1.6.9)
   capybara (>= 2.0.3)
   coffee-rails (~> 3.2.1)
-  database_cleaner (>= 1.0.0.RC1)
+  database_cleaner (~> 0.9.1)
   devise (>= 2.2.3)
   email_spec (>= 1.4.0)
   factory_girl_rails (>= 4.2.0)
@@ -207,6 +214,7 @@ DEPENDENCIES
   rails (= 3.2.13)
   rolify (>= 3.2.0)
   rspec-rails (>= 2.12.2)
+  ruby_desk!
   sass-rails (~> 3.2.3)
   simple_form (>= 2.1.0)
   sqlite3

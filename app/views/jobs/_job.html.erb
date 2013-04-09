@@ -1,7 +1,13 @@
 <li class="job">
-<strong><%= job.title %></strong>
-  <p><%= job.description %></p>
-  <div class="keyword_details" >
+  <%= link_to job.title , job.link , :target => "_blank"   %>
+  <i><%= job.platform %></i>
+
+  <p class="keyword_details">
     <%= job.keywords %>
-  </div>
+  </p>
+
+  <p>
+    <%= job.description %>
+  </p>
+
 </li>
