@@ -1,0 +1,2 @@
+module JobFeedHelper
+end

@@ -1,0 +1,59 @@
+// Place all the styles related to the JobFeed controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#keyword_input_wrapper {
+  float: left;
+  margin-right: 0.5em;
+}
+
+div#keywords_container {
+  clear: both;
+  overflow: auto;
+  p {
+    float: left;
+    margin-top: 0.3em;
+    margin-right: 0.6em;
+  }
+
+  ul {
+    list-style: none outside none;
+    li {
+      float: left;
+      a {
+        margin-left: 0.6em;
+      }
+    }
+  }
+}
+
+div#jobs_container {
+  clear: both;
+  margin-top: 1em;
+  position: relative;
+
+  #refresh_btn{
+    position: absolute;
+    top: 0.4em;
+    right: 1em;
+  }
+
+  ul {
+    list-style: none outside none;
+    margin-left: 0;
+
+    li {
+      border: 0.1em solid black;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      border-radius: 10px; /* future proofing */
+      position: relative;
+      padding: 0.4em 0.8em 0.4em 0.8em;
+      margin-top: 1em;
+
+      .keyword_details {
+        font-style: italic;
+      }
+    }
+  }
+}

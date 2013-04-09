@@ -1,0 +1,22 @@
+<%= simple_form_for @keyword, :html => {id: "keyword_form"}, :remote => true do |f| %>
+    <%= f.input :content, :label => false,
+                :placeholder => "Type a keyword",
+                :autofocus => true,
+                :wrapper_html => {:id => "keyword_input_wrapper"} %>
+    <%= f.button :submit, 'Add Keyword', :class => 'btn btn-primary' %>
+<% end %>
+
+<div id="keywords_container">
+  <p>My keywords :</p>
+  <ul id="keywords_list">
+    <%= render @keywords %>
+  </ul>
+</div>
+
+<div id="jobs_container">
+  <h3>My jobs</h3>
+  <%= link_to "Refresh Jobs", refresh_job_feed_path, class: "btn btn-success", id:"refresh_btn", remote: true %>
+  <ul id="jobs_list">
+    <%= render @jobs if @jobs %>
+  </ul>
+</div>
