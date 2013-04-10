@@ -8,7 +8,7 @@ feature "list jobs" do
     FactoryGirl.create(:keyword, content: "ruby")
     @jobs = []
     @jobs << FactoryGirl.create(:job, keywords: "php")
-    @jobs << FactoryGirl.create(:job, keywords: "php, cake")
+    @jobs << FactoryGirl.create(:job, keywords: "php, cake", description: ("bla " * 100) + "end")
     @jobs << FactoryGirl.create(:job, keywords: "ruby")
     @jobs << FactoryGirl.create(:job, keywords: "html")
     sign_in_as user
@@ -52,6 +52,15 @@ feature "list jobs" do
     visit '/'
     within("#jobs_container") do
       page.should have_content "3 jobs"
+    end
+  end
+
+  scenario "Read more link in description", :js => true do
+    visit '/'
+    within(:xpath, "//ul[@id='jobs_list']/li[position()=2]") do
+      page.should_not have_content("end")
+      click_link "Read more"
+      page.should have_content("end")
     end
   end
 

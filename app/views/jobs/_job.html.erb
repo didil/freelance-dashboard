@@ -1,13 +1,14 @@
-<li class="job">
-  <%= link_to job.title , job.link , :target => "_blank"   %>
+<li class="job" id="job_<%= job.id %>" >
+  <%= link_to job.title, job.link, :target => "_blank" %>
   <i><%= job.platform %></i>
 
   <p class="keyword_details">
     <%= job.keywords %>
   </p>
 
-  <p>
-    <%= job.description %>
+  <p class="job_description">
+    <%= truncate(job.description, :length => 300) %>
+    <%= link_to "Read more", jobs_path(job) , :remote => true  %>
   </p>
 
 </li>

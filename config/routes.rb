@@ -1,5 +1,6 @@
 FreelanceDashboard::Application.routes.draw do
 
+  match "jobs/:id" => "jobs#show" , :as => "jobs"
   get "jobs/update" , :as => "jobs_update"
 
   get "keywords_controller/create"
