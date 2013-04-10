@@ -12,6 +12,7 @@ class JobFeedController < ApplicationController
   end
 
   def refresh
+    @new_jobs = current_user.jobs_after(params[:id])
     @jobs = current_user.jobs
 
     respond_to do |format|

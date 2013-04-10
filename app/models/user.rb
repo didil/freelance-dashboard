@@ -14,10 +14,19 @@ class User < ActiveRecord::Base
 
   def jobs
     output = []
-    if keywords.any?
-      keywords.each do |keyword|
-         Job.where("keywords like ?", "%#{keyword.content}%").order("created_at DESC") .each { |j| output << j }
-      end
+    return output unless keywords.any?
+    keywords.each do |keyword|
+      Job.where("keywords like ?", "%#{keyword.content}%").order("created_at DESC").each { |j| output << j }
+    end
+    output
+  end
+
+  def jobs_after(id)
+    output = []
+    return output unless keywords.any?
+    keywords.each do |keyword|
+      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id)
+      .order("created_at DESC").each { |j| output << j }
     end
     output
   end

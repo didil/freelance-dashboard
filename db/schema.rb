@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409185721) do
+ActiveRecord::Schema.define(:version => 20130410215910) do
 
   create_table "jobs", :force => true do |t|
     t.text     "title",       :limit => 255
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20130409185721) do
     t.datetime "updated_at",                 :null => false
     t.string   "platform"
     t.string   "link"
+    t.datetime "date_posted"
   end
 
   create_table "keywords", :force => true do |t|

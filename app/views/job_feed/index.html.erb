@@ -15,7 +15,8 @@
 
 <div id="jobs_container">
   <h3>My jobs</h3> <span id="num_jobs"> <%= @jobs.count %> jobs </span>
-  <%= link_to "Refresh Jobs", refresh_job_feed_path, class: "btn btn-success", id:"refresh_btn", remote: true %>
+  <%= link_to "Refresh Jobs", refresh_job_feed_path(id: first_job_id(@jobs) ),
+              class: "btn btn-success", id: "refresh_btn", remote: true %>
   <ul id="jobs_list">
     <%= render @jobs if @jobs %>
   </ul>

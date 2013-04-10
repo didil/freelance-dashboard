@@ -4,10 +4,10 @@ describe User do
 
   before(:each) do
     @attr = {
-      :name => "Example User",
-      :email => "user@example.com",
-      :password => "changeme",
-      :password_confirmation => "changeme"
+        :name => "Example User",
+        :email => "user@example.com",
+        :password => "changeme",
+        :password_confirmation => "changeme"
     }
   end
 
@@ -68,12 +68,12 @@ describe User do
 
     it "should require a password" do
       User.new(@attr.merge(:password => "", :password_confirmation => "")).
-        should_not be_valid
+          should_not be_valid
     end
 
     it "should require a matching password confirmation" do
       User.new(@attr.merge(:password_confirmation => "invalid")).
-        should_not be_valid
+          should_not be_valid
     end
 
     it "should reject short passwords" do
@@ -101,18 +101,22 @@ describe User do
   end
 
   describe "jobs" do
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      FactoryGirl.create(:keyword, content: "php", user_id: @user.id)
+      FactoryGirl.create(:keyword, content: "html", user_id: @user.id)
+      FactoryGirl.create(:job, keywords: "php", id: 10)
+      FactoryGirl.create(:job, keywords: "php, cake", id: 20)
+      FactoryGirl.create(:job, keywords: "html", id: 30)
+      FactoryGirl.create(:job, keywords: "translation", id: 4)
+    end
 
     it "should retrieve jobs" do
-      @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:keyword , content:"php" , user_id:@user.id )
-      FactoryGirl.create(:keyword , content:"html" , user_id:@user.id )
-      FactoryGirl.create(:job , keywords:"php")
-      FactoryGirl.create(:job , keywords:"php, cake")
-      FactoryGirl.create(:job , keywords:"html")
-      FactoryGirl.create(:job , keywords:"translation")
-
       @user.jobs.length.should eq(3)
+    end
 
+    it "should retrieve jobs after" do
+      @user.jobs_after(17).length.should eq(2)
     end
 
   end
