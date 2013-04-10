@@ -12,7 +12,7 @@ feature "manage keywords" do
 
     expect(page).to have_content "Add a keyword to activate your job feed"
 
-    fill_in 'keyword_content', :with => "php"
+    fill_in 'keyword_content', :with => "pHp"
     click_button 'Add Keyword'
     fill_in 'keyword_content', :with => "php"
     click_button 'Add Keyword'

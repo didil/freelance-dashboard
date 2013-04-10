@@ -38,7 +38,7 @@ describe Job do
       job = double("job")
       job.stub(:op_title).and_return("Job #{i}")
       job.stub(:op_description).and_return("Job description #{i}")
-      job.stub(:op_required_skills).and_return("php,html,js")
+      job.stub(:op_required_skills).and_return("Php,html,js")
       job.stub(:ciphertext).and_return("~~cypher123")
       jobs << job
     end

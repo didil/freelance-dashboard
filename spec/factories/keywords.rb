@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :keyword do
-    content "MyString"
+    content "keyword1"
     user_id 1
   end
 end

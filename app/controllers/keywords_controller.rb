@@ -2,7 +2,8 @@ class KeywordsController < ApplicationController
   before_filter :authenticate_user!
 
   def create
-    @keyword = Keyword.new(params[:keyword])
+    @keyword = Keyword.new
+    @keyword.content = params[:keyword][:content].downcase
     @keyword.user = current_user
 
     if @keyword.existing?

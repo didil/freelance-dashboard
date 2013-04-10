@@ -58,6 +58,11 @@ div#jobs_container {
       padding: 0.4em 0.8em 0.4em 0.8em;
       margin-top: 1em;
 
+      .job_platform{
+        font-style: italic;
+        font-weight:bold;
+      }
+
       .keyword_details {
         font-style: italic;
         word-wrap: break-word;

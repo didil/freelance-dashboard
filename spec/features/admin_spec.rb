@@ -7,6 +7,10 @@ feature "admin functions" do
     user
   end
 
+  before(:each) do
+    FactoryGirl.create(:keyword)
+  end
+
   scenario "update jobs", :js => true do
     sign_in_as user
     visit '/'

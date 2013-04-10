@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  attr_accessible :description, :keywords, :title, :platform , :link
+  attr_accessible :description, :keywords, :title, :platform, :link
 
   def self.update_all_jobs
     Keyword.uniq.pluck(:content).each do |keyword|
@@ -17,7 +17,7 @@ class Job < ActiveRecord::Base
     jobs = RubyDesk::Job.search(rd, q: keyword, page: "0;20").map do |j|
       Job.new(title: j.op_title,
               description: j.op_description,
-              keywords: j.op_required_skills,
+              keywords: j.op_required_skills.downcase,
               link: "http://www.odesk.com/jobs/#{j.ciphertext}",
               platform: "oDesk")
     end
