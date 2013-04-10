@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
     output = []
     if keywords.any?
       keywords.each do |keyword|
-         Job.where("keywords like ?", "%#{keyword.content}%").each { |j| output << j }
+         Job.where("keywords like ?", "%#{keyword.content}%").order("created_at DESC") .each { |j| output << j }
       end
     end
     output

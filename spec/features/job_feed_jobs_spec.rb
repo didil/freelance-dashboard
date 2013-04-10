@@ -57,7 +57,7 @@ feature "list jobs" do
 
   scenario "Read more link in description", :js => true do
     visit '/'
-    within(:xpath, "//ul[@id='jobs_list']/li[position()=2]") do
+    within(:xpath, "//ul[@id='jobs_list']") do
       page.should_not have_content("end")
       click_link "Read more"
       page.should have_content("end")
