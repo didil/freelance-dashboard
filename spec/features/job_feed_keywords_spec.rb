@@ -5,6 +5,10 @@ feature "manage keywords" do
   
   before(:each) do
     sign_in_as user
+    # avoid fetching jobs
+    JobsRequest.create(keyword: "php", requested_at: Time.now)
+    JobsRequest.create(keyword: "ruby", requested_at: Time.now)
+    JobsRequest.create(keyword: "html", requested_at: Time.now)
   end
 
   scenario "add keywords" do

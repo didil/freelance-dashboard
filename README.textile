@@ -1,9 +1,11 @@
 h1. Freelance Dashboard
 
-A dashboard app for freelancers allowing to :
+A Ruby on Rails dashboard app for freelancers allowing to :
 
-* Check new jobs on Elance
-* Check new jobs on Odesk
+* Search for jobs on Elance
+* Search for jobs on Odesk
+
+Integration and Unit testing with Rspec and Capybara / Poltergeist
 
 Live on http://freelance-dashboard.herokuapp.com
 
@@ -14,7 +16,7 @@ If you make improvements to this application, please share with others.
 * Fork the project on GitHub.
 * Make your feature addition or bug fix.
 * Commit with Git.
-* Send the author a pull request.
+* Send a pull request.
 
 If you add functionality to this application, create an alternative implementation, or build an application that is similar, please contact me and I'll add a note to the README so that others can find your work.
 

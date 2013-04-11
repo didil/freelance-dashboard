@@ -3,3 +3,4 @@ $('ul#keywords_list').html("<%=j render current_user.keywords %>");
 $('ul#jobs_list').html("<%=j render current_user.jobs %>");
 $('a#refresh_btn').attr('href','<%=refresh_job_feed_path(id: first_job_id(current_user.jobs)) %>');
 refreshNumJobs();
+$("#jobs_loading").hide();

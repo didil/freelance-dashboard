@@ -28,7 +28,10 @@ describe Job do
     Job.should_receive(:fetch_elance_jobs).with "php"
     Job.should_receive(:save_new_jobs).twice
 
-    Job.update_jobs "php"
+    keyword = "php"
+    Job.update_jobs(keyword)
+
+    JobsRequest.find_by_keyword(keyword).requested_at.should >= 5.seconds.ago
   end
 
   describe "::fetch_odesk_jobs" do

@@ -8,4 +8,9 @@ class Keyword < ActiveRecord::Base
   def existing?
     Keyword.where(content: content, user_id: user_id).any?
   end
+
+  def outdated?
+    jobs_request = JobsRequest.find_by_keyword(self.content)
+    jobs_request.nil? || (jobs_request.requested_at < 15.minutes.ago )
+  end
 end

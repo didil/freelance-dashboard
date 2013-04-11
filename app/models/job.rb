@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class Job < ActiveRecord::Base
-  attr_accessible :description, :keywords, :title, :platform, :link,:date_posted
+  attr_accessible :description, :keywords, :title, :platform, :link
 
   PLATFORMS = %w{odesk elance}
 
@@ -16,6 +16,7 @@ class Job < ActiveRecord::Base
       jobs = self.send("fetch_#{platform}_jobs".to_sym, keyword)
       save_new_jobs(jobs)
     end
+    JobsRequest.find_or_create_by_keyword(keyword).update_attribute(:requested_at, Time.now)
   end
 
   private
@@ -25,15 +26,16 @@ class Job < ActiveRecord::Base
     begin
       rd = RubyDesk::Connector.new("api_key", "api_secret")
       jobs = RubyDesk::Job.search(rd, q: keyword, page: "0;20").map do |j|
-        Job.new(title: j.op_title,
+        j = Job.new(title: j.op_title,
                 description: j.op_description,
                 keywords: j.op_required_skills.downcase,
                 link: "http://www.odesk.com/jobs/#{j.ciphertext}",
                 platform: "oDesk")
-
+        j.keywords += ", #{keyword}" unless j.keywords.include? keyword
+        j
       end
     rescue StandardError => ex
-      logger.debug ex.message
+      logger.debug "Failed to fetch odesk jobs : " + ex.message
     end
     # reverse to allow most recent to be written to db last
     jobs.reverse
@@ -48,12 +50,13 @@ class Job < ActiveRecord::Base
         j.title = div.css('a.title').first.content
         j.description= div.css('.desc').first.content
         j.keywords= div.css('span.skilllist').first.content.downcase
+        j.keywords += ", #{keyword}" unless j.keywords.include? keyword
         j.link= div.css('a.title').first.attr('href')
         j.platform= "Elance"
         jobs << j
       end
     rescue StandardError => ex
-      logger.debug ex.message
+      logger.debug "Failed to fetch elance jobs : " +  ex.message
     end
     # reverse to allow most recent to be written to db last
     jobs.reverse

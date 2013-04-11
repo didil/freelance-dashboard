@@ -1,4 +1,4 @@
-<%= simple_form_for @keyword, :html => {id: "keyword_form"}, :remote => true do |f| %>
+<%= simple_form_for @keyword, :html => {id: "keyword_form", class: "span5"}, :remote => true do |f| %>
     <%= f.input :content, :label => false,
                 :placeholder => "Type a keyword",
                 :autofocus => true,
@@ -6,7 +6,7 @@
     <%= f.button :submit, 'Add Keyword', :class => 'btn btn-primary' %>
 <% end %>
 
-<div id="keywords_container">
+<div id="keywords_container" class="span5">
   <p>My keywords :</p>
   <ul id="keywords_list">
     <%= render @keywords %>
@@ -14,8 +14,10 @@
 </div>
 
 <div id="jobs_container">
-  <h3>My jobs</h3> <span id="num_jobs"> <%= @jobs.count %> jobs </span>
-  <%= link_to "Refresh Jobs", refresh_job_feed_path(id: first_job_id(@jobs) ),
+  <h3>My jobs</h3>
+  <%= image_tag "ajax-loader.gif" , :id => "jobs_loading" , :hidden => true %>
+  <span id="num_jobs"> <%= @jobs.count %> jobs </span>
+  <%= link_to "Refresh Jobs", refresh_job_feed_path(id: first_job_id(@jobs)),
               class: "btn btn-success", id: "refresh_btn", remote: true %>
   <ul id="jobs_list">
     <%= render @jobs if @jobs %>

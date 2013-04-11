@@ -100,11 +100,14 @@ describe User do
 
   end
 
-  describe "jobs" do
+  describe "#jobs" do
     before(:each) do
       @user = FactoryGirl.create(:user)
-      FactoryGirl.create(:keyword, content: "php", user_id: @user.id)
-      FactoryGirl.create(:keyword, content: "html", user_id: @user.id)
+      @keyword_1 = FactoryGirl.create(:keyword, content: "php", user_id: @user.id)
+      @keyword_2 = FactoryGirl.create(:keyword, content: "html", user_id: @user.id)
+      @keyword_1.stub(:outdated?).and_return(false)
+      @keyword_2.stub(:outdated?).and_return(false)
+      @user.should_receive(:keywords).twice.and_return [@keyword_1,@keyword_2]
       FactoryGirl.create(:job, keywords: "php", id: 10)
       FactoryGirl.create(:job, keywords: "php, cake", id: 20)
       FactoryGirl.create(:job, keywords: "html", id: 30)
@@ -116,7 +119,13 @@ describe User do
     end
 
     it "should retrieve jobs after" do
-      @user.jobs_after(17).length.should eq(2)
+      @user.jobs(17).length.should eq(2)
+    end
+
+    it "should update jobs if keyword outdated" do
+      @keyword_1.stub(:outdated?).and_return(true)
+      Job.should_receive(:update_jobs).with("php")
+      @user.jobs
     end
 
   end

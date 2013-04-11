@@ -2,13 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-div#keyword_input_wrapper {
-  float: left;
-  margin-right: 0.5em;
+#keyword_form {
+  margin-bottom: 0.5em;
+  #keyword_input_wrapper {
+    float: left;
+    margin-right: 0.5em;
+    #keyword_content {
+      margin-bottom: 0px;
+    }
+  }
+
 }
 
-div#keywords_container {
-  clear: both;
+#keywords_container {
   overflow: auto;
   p {
     float: left;
@@ -27,19 +33,26 @@ div#keywords_container {
   }
 }
 
-div#jobs_container {
+#jobs_container {
   clear: both;
   margin-top: 1em;
   position: relative;
 
-  #num_jobs{
+  #jobs_loading {
+    position: absolute;
+    top: 0.9em;
+    right: 25em;
+    font-style: italic;
+  }
+
+  #num_jobs {
     position: absolute;
     top: 0.7em;
     right: 12em;
     font-style: italic;
   }
 
-  #refresh_btn{
+  #refresh_btn {
     position: absolute;
     top: 0.4em;
     right: 1em;
@@ -58,9 +71,9 @@ div#jobs_container {
       padding: 0.4em 0.8em 0.4em 0.8em;
       margin-top: 1em;
 
-      .job_platform{
+      .job_platform {
         font-style: italic;
-        font-weight:bold;
+        font-weight: bold;
       }
 
       .keyword_details {

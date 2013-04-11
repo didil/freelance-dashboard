@@ -6,6 +6,12 @@ feature "list jobs" do
   before(:each) do
     FactoryGirl.create(:keyword, content: "php")
     FactoryGirl.create(:keyword, content: "ruby")
+
+    # avoid fetching jobs
+    JobsRequest.create(keyword: "php", requested_at: Time.now)
+    JobsRequest.create(keyword: "ruby", requested_at: Time.now)
+    JobsRequest.create(keyword: "html", requested_at: Time.now)
+
     @jobs = []
     @jobs << FactoryGirl.create(:job, keywords: "php")
     @jobs << FactoryGirl.create(:job, keywords: "php, cake", description: ("bla " * 100) + "end")
@@ -39,7 +45,7 @@ feature "list jobs" do
       page.should have_selector('li.job', :count => 3)
     end
 
-    FactoryGirl.create(:job, keywords: "php")
+    FactoryGirl.create(:job, keywords: "html")
 
     within("#jobs_container") do
       click_link "Refresh"

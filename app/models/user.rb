@@ -12,21 +12,15 @@ class User < ActiveRecord::Base
 
   has_many :keywords
 
-  def jobs
+  def jobs (id=0)
     output = []
-    return output unless keywords.any?
-    keywords.each do |keyword|
-      Job.where("keywords like ?", "%#{keyword.content}%").order("created_at DESC").each { |j| output << j }
-    end
-    output
-  end
+    return output unless self.keywords.any?
+    self.keywords.each do |keyword|
+      if keyword.outdated?
+        Job.update_jobs keyword.content
+      end
 
-  def jobs_after(id)
-    output = []
-    return output unless keywords.any?
-    keywords.each do |keyword|
-      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id)
-      .order("created_at DESC").each { |j| output << j }
+      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id).order("created_at DESC").each { |j| output << j }
     end
     output
   end

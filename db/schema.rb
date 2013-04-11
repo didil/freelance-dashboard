@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410215910) do
+ActiveRecord::Schema.define(:version => 20130411151916) do
 
   create_table "jobs", :force => true do |t|
     t.text     "title",       :limit => 255
@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(:version => 20130410215910) do
     t.string   "link"
     t.datetime "date_posted"
   end
+
+  create_table "jobs_requests", :force => true do |t|
+    t.string   "keyword"
+    t.datetime "requested_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "jobs_requests", ["keyword"], :name => "index_jobs_requests_on_keyword", :unique => true
 
   create_table "keywords", :force => true do |t|
     t.string   "content"
