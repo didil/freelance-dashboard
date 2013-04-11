@@ -1,6 +1,15 @@
 $('#flash').html("<%= escape_javascript raw(flash_display) %>");
+
 $('ul#keywords_list').html("<%=j render current_user.keywords %>");
+$("a.keyword").tooltip({ title:'Click to delete', placement:'bottom' });
+$("a.keyword").click(function () {
+            $("#jobs_loading").show();
+        }
+);
+
 $('ul#jobs_list').html("<%=j render current_user.jobs %>");
-$('a#refresh_btn').attr('href','<%=refresh_job_feed_path(id: first_job_id(current_user.jobs)) %>');
 refreshNumJobs();
+
+$('a#refresh_btn').attr('href', '<%=refresh_job_feed_path(id: first_job_id(current_user.jobs)) %>');
+
 $("#jobs_loading").hide();

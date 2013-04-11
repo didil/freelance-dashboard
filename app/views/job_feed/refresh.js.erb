@@ -1,6 +1,8 @@
 $('li.new_job').removeClass('new_job');
 $('ul#jobs_list').prepend("<%=j render @new_jobs %>");
-$('a#refresh_btn').attr('href', '<%=refresh_job_feed_path(id: first_job_id(@jobs)) %>');
-refreshNumJobs();
 highlightNewJobs();
+refreshNumJobs();
+
+$('a#refresh_btn').attr('href', '<%=refresh_job_feed_path(id: first_job_id(@jobs)) %>');
+
 $("#jobs_loading").hide();
