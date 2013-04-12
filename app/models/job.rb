@@ -3,6 +3,8 @@ require 'open-uri'
 class Job < ActiveRecord::Base
   attr_accessible :description, :keywords, :title, :platform, :link, :posted_at
 
+  validates_presence_of :description, :keywords, :title, :platform, :link, :posted_at
+
   PLATFORMS = %w{odesk elance}
 
   def self.update_all_jobs

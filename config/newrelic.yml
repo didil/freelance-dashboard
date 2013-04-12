@@ -118,14 +118,14 @@ common: &default_settings
   # Java: create a config setting called "ignored_params" and set it to
   #     a comma separated list of HTTP parameter names.
   #     ex: ignored_params: credit_card, ssn, password 
-  capture_params: false
+ # capture_params: false
 
 
   # Transaction tracer captures deep information about slow
   # transactions and sends this to the service once a
   # minute. Included in the transaction is the exact call sequence of
   # the transactions including any SQL statements issued.
-  transaction_tracer:
+  #transaction_tracer:
   
     # Transaction tracer is enabled by default. Set this to false to
     # turn it off. This feature is only available at the Professional
@@ -163,7 +163,7 @@ common: &default_settings
   
   # Error collector captures information about uncaught exceptions and
   # sends them to the service for viewing
-  error_collector:
+  #error_collector:
     
     # Error collector is enabled by default. Set this to false to turn
     # it off. This feature is only available at the Professional and above

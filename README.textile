@@ -9,6 +9,9 @@ This rails app makes use of :
 * Twitter Bootstrap for the UI 
 * Devise, Cancan and Rolify for Authentification / Authorization / Roles
 * Rspec and Capybara / PhantomJS - Poltergeist for Integration and Unit testing
+* New relic for Performance monitoring
+* Heroku for cloud hosting
+* Google Analytics for site analytics
 
 You can see it live on http://freelance-dashboard.herokuapp.com
 
@@ -22,4 +25,3 @@ If you make improvements to this application, please share with others.
 * Send a pull request.
 
 If you add functionality to this application, create an alternative implementation, or build an application that is similar, please contact me and I'll add a note to the README so that others can find your work.
-

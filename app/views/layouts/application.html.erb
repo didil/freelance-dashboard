@@ -33,5 +33,6 @@
   <!--! end of .container -->
 </div>
 <!--! end of #main -->
+<%= render :partial => 'layouts/ga' if Rails.env == 'production' %>
 </body>
 </html>

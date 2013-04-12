@@ -6,5 +6,7 @@ FactoryGirl.define do
     description "Job Description"
     keywords "keyword1 , keyword2"
     platform "Odesk"
+    link "http://www.example.com/job"
+    posted_at 5.minutes.ago
   end
 end
