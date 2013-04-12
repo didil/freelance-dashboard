@@ -6,11 +6,22 @@ function highlightNewJobs() {
     $("li.new_job").css({'background-color':'#88ff88'}).animate({'background-color':'transparent'}, 700);
 }
 
-$(function(){
-    $("a.keyword").tooltip({ title: 'Click to delete' ,placement:'bottom' });
+function showLoader(){
+    $("#jobs_loading").show();
+}
 
-   $("#refresh_btn, a.keyword, #keyword_form :submit").click(function(){
-           $("#jobs_loading").show();
+$(function(){
+    $('#keywords_container').tooltip({
+        selector: '[class=keyword]' , title: 'Click to delete' ,placement:'bottom'
+    });
+
+    $("#keywords_list").on("click", "a.keyword", function(){
+            showLoader();
+        }
+    );
+
+   $("#refresh_btn, #keyword_form :submit").click(function(){
+           showLoader();
        }
    );
 

@@ -2,12 +2,15 @@ h1. Freelance Dashboard
 
 A Ruby on Rails dashboard app for freelancers allowing to :
 
-* Search for jobs on Elance
-* Search for jobs on Odesk
+* Search for jobs on Elance & Odesk by keywords
 
-Integration and Unit testing with Rspec and Capybara / Poltergeist
+This rails app makes use of :
 
-Live on http://freelance-dashboard.herokuapp.com
+* Twitter Bootstrap for the UI 
+* Devise, Cancan and Rolify for Authentification / Authorization / Roles
+* Rspec and Capybara / PhantomJS - Poltergeist for Integration and Unit testing
+
+You can see it live on http://freelance-dashboard.herokuapp.com
 
 h2. Contributing
 

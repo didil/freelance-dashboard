@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class Job < ActiveRecord::Base
-  attr_accessible :description, :keywords, :title, :platform, :link
+  attr_accessible :description, :keywords, :title, :platform, :link, :date_posted
 
   PLATFORMS = %w{odesk elance}
 
@@ -27,10 +27,11 @@ class Job < ActiveRecord::Base
       rd = RubyDesk::Connector.new("api_key", "api_secret")
       jobs = RubyDesk::Job.search(rd, q: keyword, page: "0;20").map do |j|
         j = Job.new(title: j.op_title,
-                description: j.op_description,
-                keywords: j.op_required_skills.downcase,
-                link: "http://www.odesk.com/jobs/#{j.ciphertext}",
-                platform: "oDesk")
+                    description: j.op_description,
+                    keywords: j.op_required_skills.downcase,
+                    link: "http://www.odesk.com/jobs/#{j.ciphertext}",
+                    date_posted: j.date_posted,
+                    platform: "oDesk")
         j.keywords += ", #{keyword}" unless j.keywords.include? keyword
         j
       end
@@ -52,11 +53,18 @@ class Job < ActiveRecord::Base
         j.keywords= div.css('span.skilllist').first.content.downcase
         j.keywords += ", #{keyword}" unless j.keywords.include? keyword
         j.link= div.css('a.title').first.attr('href')
+        stats_div_content = div.css('div.stats').first.content
+        if stats_div_content =~ /ago/
+          j.date_posted= Date.today
+        else
+          stats_div_content =~ /Posted: ([^\|]+)/
+          j.date_posted= $1.strip
+        end
         j.platform= "Elance"
         jobs << j
       end
     rescue StandardError => ex
-      logger.debug "Failed to fetch elance jobs : " +  ex.message
+      logger.debug "Failed to fetch elance jobs : " + ex.message
     end
     # reverse to allow most recent to be written to db last
     jobs.reverse

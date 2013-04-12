@@ -2,6 +2,8 @@
   <%= link_to job.title, job.link, :target => "_blank" %>
   <span class="job_platform"><%= job.platform %></span>
 
+  <span class="job_date_posted">Posted on : <%= job.date_posted.strftime("%B, %-d %Y") %></span>
+
   <p class="keyword_details">
     <%= job.keywords %>
   </p>

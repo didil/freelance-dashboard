@@ -20,7 +20,9 @@ class User < ActiveRecord::Base
         Job.update_jobs keyword.content
       end
 
-      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id).order("created_at DESC").each { |j| output << j }
+      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id)
+      .order("date_posted DESC")
+      .order("created_at DESC").each { |j| output << j }
     end
     output
   end
