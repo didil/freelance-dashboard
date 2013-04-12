@@ -37,4 +37,5 @@ end
 group :production do
   gem 'pg'
   gem "unicorn", ">= 4.3.1"
+  gem 'newrelic_rpm'
 end
