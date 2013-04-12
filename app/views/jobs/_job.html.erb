@@ -2,7 +2,7 @@
   <%= link_to job.title, job.link, :target => "_blank" %>
   <span class="job_platform"><%= job.platform %></span>
 
-  <span class="job_date_posted"><%= display_job_date_posted job %></span>
+  <span class="job_date_posted"><%= display_job_posted_at job %></span>
 
   <p class="keyword_details">
     <%= job.keywords %>

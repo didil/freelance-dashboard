@@ -1,7 +1,7 @@
 require 'open-uri'
 
 class Job < ActiveRecord::Base
-  attr_accessible :description, :keywords, :title, :platform, :link, :date_posted
+  attr_accessible :description, :keywords, :title, :platform, :link, :posted_at
 
   PLATFORMS = %w{odesk elance}
 
@@ -30,7 +30,7 @@ class Job < ActiveRecord::Base
                     description: j.op_description,
                     keywords: j.op_required_skills.downcase,
                     link: "http://www.odesk.com/jobs/#{j.ciphertext}",
-                    date_posted: j.date_posted,
+                    posted_at: DateTime.parse("#{j.date_posted} #{j.op_time_posted} #{j.op_time_posted}"),
                     platform: "oDesk")
         j.keywords += ", #{keyword}" unless j.keywords.include? keyword
         j
@@ -54,11 +54,18 @@ class Job < ActiveRecord::Base
         j.keywords += ", #{keyword}" unless j.keywords.include? keyword
         j.link= div.css('a.title').first.attr('href')
         stats_div_content = div.css('div.stats').first.content
-        if stats_div_content =~ /ago/
-          j.date_posted= Date.today
+        stats_div_content =~ /Posted: ([^\|]+)/
+        match =$1
+        if match =~ /(.+) ago/
+          match = $1
+          if match =~ /(\d+) minutes/
+            j.posted_at= $1.to_i.minutes.ago
+          elsif match =~ /(\d+)h, (\d+)m/
+            j.posted_at= Time.now - $1.to_i.hours - $2.to_i.minutes
+          end
         else
           stats_div_content =~ /Posted: ([^\|]+)/
-          j.date_posted= $1.strip
+          j.posted_at= $1.strip
         end
         j.platform= "Elance"
         jobs << j
@@ -67,7 +74,7 @@ class Job < ActiveRecord::Base
       logger.debug "Failed to fetch elance jobs : " + ex.message
     end
     # reverse to allow most recent to be written to db last
-    jobs.reverse
+    jobs.reverse!
   end
 
   def self.save_new_jobs(jobs)

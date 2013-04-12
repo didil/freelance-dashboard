@@ -21,10 +21,9 @@ class User < ActiveRecord::Base
       end
 
       Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id)
-      .order("date_posted DESC")
-      .order("created_at DESC").each { |j| output << j }
+      .order("posted_at DESC").each { |j| output << j }
     end
-    output
+    output.sort_by{|j| j[:posted_at]}.reverse!
   end
 
 end

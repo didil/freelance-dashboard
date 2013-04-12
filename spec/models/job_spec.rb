@@ -45,6 +45,8 @@ describe Job do
         job.stub(:op_required_skills).and_return("Php,html,js")
         job.stub(:ciphertext).and_return("~~cypher123")
         job.stub(:date_posted).and_return("April 12, 2013")
+        job.stub(:op_time_posted).and_return("19:11:34")
+        job.stub(:timezone).and_return("UTC-08:00 Pacific Time (US & Canada); Tijuana")
         jobs << job
       end
 
@@ -60,7 +62,7 @@ describe Job do
       my_job.description.should =~ /Job description \d/
       my_job.keywords.should == "php,html,js"
       my_job.platform.should == "oDesk"
-      my_job.date_posted.should eq Date.strptime('12-04-2013', '%d-%m-%Y')
+      my_job.posted_at.should eq DateTime.new(2013, 04, 12, 19, 11, 34)
     end
   end
 
@@ -77,9 +79,9 @@ describe Job do
       my_job.description.should =~ /Stock taking control panel & Shipping services/
       my_job.keywords.should == "css, html, php"
       my_job.platform.should == "Elance"
-      my_job.date_posted.should eq Date.today
+      (my_job.posted_at - Time.now - 1.hours - 19.minutes).should <= 1.minute
 
-      fetched_jobs[1].date_posted.should eq Date.strptime('11-04-2013', '%d-%m-%Y')
+      fetched_jobs[1].posted_at.should eq DateTime.strptime('11-04-2013', '%d-%m-%Y')
     end
   end
 
