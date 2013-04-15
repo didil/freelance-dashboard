@@ -99,35 +99,43 @@ describe User do
     end
 
   end
+end
 
-  describe "#jobs" do
-    before(:each) do
-      @user = FactoryGirl.create(:user)
-      @keyword_1 = FactoryGirl.create(:keyword, content: "php", user_id: @user.id)
-      @keyword_2 = FactoryGirl.create(:keyword, content: "html", user_id: @user.id)
-      @keyword_1.stub(:outdated?).and_return(false)
-      @keyword_2.stub(:outdated?).and_return(false)
-      @user.should_receive(:keywords).twice.and_return [@keyword_1,@keyword_2]
-      FactoryGirl.create(:job, keywords: "php", id: 10)
-      FactoryGirl.create(:job, keywords: "php, cake", id: 20)
-      FactoryGirl.create(:job, keywords: "html", id: 30)
-      FactoryGirl.create(:job, keywords: "translation", id: 4)
-    end
+describe "User#jobs" do
+  before(:each) do
+    @user = FactoryGirl.create(:user)
+    @keyword_1 = FactoryGirl.create(:keyword, content: "php", user_id: @user.id)
+    @keyword_2 = FactoryGirl.create(:keyword, content: "html", user_id: @user.id)
+    @keyword_1.stub(:outdated?).and_return(false)
+    @keyword_2.stub(:outdated?).and_return(false)
+    @user.should_receive(:keywords).twice.and_return [@keyword_1, @keyword_2]
+    FactoryGirl.create(:job, keywords: "php", id: 10)
+    FactoryGirl.create(:job, keywords: "php, cake", id: 20)
+    FactoryGirl.create(:job, keywords: "html", id: 30)
+    FactoryGirl.create(:job, keywords: "translation", id: 4)
+  end
 
-    it "should retrieve jobs" do
-      @user.jobs.length.should eq(3)
-    end
+  it "should retrieve jobs" do
+    @user.jobs.length.should eq(3)
+  end
 
-    it "should retrieve jobs after" do
-      @user.jobs(17).length.should eq(2)
-    end
+  it "should retrieve jobs after" do
+    @user.jobs(id: 17).length.should eq(2)
+  end
 
-    it "should update jobs if keyword outdated" do
-      @keyword_1.stub(:outdated?).and_return(true)
-      Job.should_receive(:update_jobs).with("php")
-      @user.jobs
-    end
+  it "should update jobs if keyword outdated" do
+    @keyword_1.stub(:outdated?).and_return(true)
+    Job.should_receive(:update_jobs).with("php")
+    @user.jobs
+  end
 
+  it "should skip updates when told so" do
+    @keyword_1.stub(:outdated?).and_return(true)
+    @keyword_2.stub(:outdated?).and_return(true)
+    Job.should_not_receive(:update_jobs)
+    @user.jobs :skip_updates => true
   end
 
 end
+
+

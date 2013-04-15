@@ -1,11 +1,12 @@
 require "spec_helper"
 
-feature "list jobs" do
+describe "list jobs" do
   let(:user) { FactoryGirl.create(:user) }
 
   before(:each) do
-    FactoryGirl.create(:keyword, content: "php")
-    FactoryGirl.create(:keyword, content: "ruby")
+    FactoryGirl.create(:keyword, content: "php" , user_id:user.id)
+
+    FactoryGirl.create(:keyword, content: "ruby", user_id:user.id)
 
     # avoid fetching jobs
     JobsRequest.create(keyword: "php", requested_at: Time.now)
@@ -20,7 +21,7 @@ feature "list jobs" do
     sign_in_as user
   end
 
-  scenario "show jobs" do
+  it "show jobs" do
     visit '/'
     within("#jobs_container") do
       page.should have_selector('li.job', :count => 3)
@@ -29,23 +30,24 @@ feature "list jobs" do
     end
   end
 
-  scenario "reload jobs when keyword modified", :js => true do
+  it "reload jobs when keyword modified", :js => true do
     visit '/'
     within("#keywords_container") do
-      click_link "ruby"
+     find("#ruby").click
     end
     within("#jobs_container") do
       page.should have_selector('li.job', :count => 2)
     end
   end
 
-  scenario "refresh jobs", :js => true do
+  it "refresh jobs", :js => true do
     visit '/'
     within("#jobs_container") do
       page.should have_selector('li.job', :count => 3)
     end
 
-    FactoryGirl.create(:job, keywords: "html")
+
+    FactoryGirl.create(:keyword, content: "html")
 
     within("#jobs_container") do
       click_link "Refresh"
@@ -54,14 +56,14 @@ feature "list jobs" do
     end
   end
 
-  scenario "show number of jobs filtered" do
+  it "show number of jobs filtered" do
     visit '/'
     within("#jobs_container") do
       page.should have_content "3 jobs"
     end
   end
 
-  scenario "Read more link in description", :js => true do
+  it "Read more link in description", :js => true do
     visit '/'
     within(:xpath, "//ul[@id='jobs_list']") do
       page.should_not have_content("end")

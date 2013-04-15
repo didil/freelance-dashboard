@@ -6,9 +6,11 @@ require 'email_spec'
 require 'rspec/autorun'
 
 # use poltergeist for js testing
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
-Capybara.default_wait_time = 30
+#require 'capybara/poltergeist'
+#Capybara.javascript_driver = :poltergeist
+#Capybara.default_wait_time = 30
+
+Capybara.javascript_driver = :webkit
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -37,23 +39,31 @@ RSpec.configure do |config|
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
-  #     --seed 1234
+  # --seed 1234
   config.order = "random"
 
   config.use_transactional_fixtures = false
 
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
   config.before(:each) do
-    DatabaseCleaner.strategy = if example.metadata[:js]
-                                 :truncation
-                               else
-                                 :transaction
-                               end
+    DatabaseCleaner.strategy = :transaction
+  end
+
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
     DatabaseCleaner.start
   end
 
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
 
 end
 

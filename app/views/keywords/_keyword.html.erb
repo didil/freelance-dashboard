@@ -1,5 +1,5 @@
 <li class="btn btn-info">
   <span><%= keyword.content %></span>
-  <%= link_to " x", keyword, :method => :delete, :remote => true, :class => "keyword",
+  <%= link_to " x", keyword, :method => :delete, :remote => true, :class => "keyword", :id=>keyword.content,
               :title => "Click to delete" %>
 </li>

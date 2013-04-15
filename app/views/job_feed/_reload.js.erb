@@ -1,10 +1,10 @@
 $('#flash').html("<%= escape_javascript raw(flash_display) %>");
 
-$('ul#keywords_list').html("<%=j render current_user.keywords %>");
+$('ul#keywords_list').html("<%=j render keywords %>");
 
-$('ul#jobs_list').html("<%=j render current_user.jobs %>");
+$('ul#jobs_list').html("<%=j render jobs %>");
 refreshNumJobs();
 
-$('a#refresh_btn').attr('href', '<%=refresh_job_feed_path(id: first_job_id(current_user.jobs)) %>');
+$('a#refresh_btn').attr('href', '<%=refresh_job_feed_path(id: first_job_id(jobs)) %>');
 
 $("#jobs_loading").hide();

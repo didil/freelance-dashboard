@@ -8,11 +8,11 @@ class JobFeedController < ApplicationController
 
     @keywords = current_user.keywords
     @keyword = Keyword.new
-    @jobs = current_user.jobs
+    @jobs = current_user.jobs :skip_updates => true
   end
 
   def refresh
-    @new_jobs = current_user.jobs(params[:id])
+    @new_jobs = current_user.jobs(:id => params[:id])
     @jobs = current_user.jobs
 
     respond_to do |format|

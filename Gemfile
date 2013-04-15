@@ -24,6 +24,8 @@ group  :development do
   gem "better_errors", ">= 0.7.2"
   gem "quiet_assets", ">= 1.0.2"
   gem "binding_of_caller", ">= 0.7.1", :platforms => [:mri_19, :rbx]
+  gem 'guard-rspec'
+  gem 'rb-inotify', :require => false
 end
 
 group :test do
@@ -32,6 +34,8 @@ group :test do
   gem "capybara", ">= 2.0.3"
   gem "database_cleaner",  '~> 0.9.1'
   gem "email_spec", ">= 1.4.0"
+  gem 'spork-rails'
+  gem "capybara-webkit"
 end
 
 group :production do

@@ -12,15 +12,15 @@ class User < ActiveRecord::Base
 
   has_many :keywords
 
-  def jobs (id=0)
+  def jobs (options = {})
     output = []
     return output unless self.keywords.any?
     self.keywords.each do |keyword|
-      if keyword.outdated?
+      if !options[:skip_updates] and keyword.outdated?
         Job.update_jobs keyword.content
       end
 
-      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", id)
+      Job.where("keywords like ? and id > ?", "%#{keyword.content}%", options[:id] || 0 )
       .order("posted_at DESC").each { |j| output << j }
     end
     output.sort_by{|j| j[:posted_at]}.reverse!
