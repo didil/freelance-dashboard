@@ -16,6 +16,8 @@ gem "simple_form", ">= 2.1.0"
 gem "figaro", ">= 0.6.3"
 gem 'ruby_desk' , :github => "Judis/ruby_desk"
 gem 'nokogiri'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 gem "rspec-rails", ">= 2.12.2", :group => [:development, :test]
 gem "factory_girl_rails", ">= 4.2.0", :group => [:development, :test]

@@ -8,7 +8,7 @@ This rails app makes use of :
 
 * Twitter Bootstrap for the UI 
 * Devise, Cancan and Rolify for Authentification / Authorization / Roles
-* Rspec and Capybara / PhantomJS - Poltergeist for Integration and Unit testing
+* Rspec and Capybara for Integration and Unit testing
 * New relic for Performance monitoring
 * Heroku for cloud hosting
 * Google Analytics for site analytics
