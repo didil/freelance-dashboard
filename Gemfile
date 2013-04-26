@@ -28,6 +28,7 @@ group  :development do
   gem "binding_of_caller", ">= 0.7.1", :platforms => [:mri_19, :rbx]
   gem 'guard-rspec'
   gem 'rb-inotify', :require => false
+  gem 'bullet'
 end
 
 group :test do
